@@ -12,6 +12,9 @@ void android_main(struct android_app *app)
 {
     __android_log_print(ANDROID_LOG_INFO, "AndroidVulkanGameEngine", "Hello World!");
 
+    VulkanApplication vulkan_app;
+    vulkan_app.run();
+
     // Used to poll the events in the main loop
     int events;
     android_poll_source *source;
