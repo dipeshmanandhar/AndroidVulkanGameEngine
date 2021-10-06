@@ -1,4 +1,5 @@
 #include "VulkanApplication.h"
+#include "Logging.h"
 
 void VulkanApplication::run()
 {
