@@ -1,8 +1,12 @@
+#include <thread>
+
 #include <android/log.h>
 #include <android_native_app_glue.h>
 
 #include "Logging.h"
 #include "VulkanApplication.h"
+
+VulkanApplication vulkan_app;
 
 // Process the next main command.
 void handle_cmd(struct android_app *app, int32_t cmd)
@@ -11,7 +15,7 @@ void handle_cmd(struct android_app *app, int32_t cmd)
     {
     case APP_CMD_INIT_WINDOW:
         // The window is being shown, get it ready.
-        LOGI("Initializing window...");
+        vulkan_app.initWindow(app);
         break;
     case APP_CMD_TERM_WINDOW:
         // The window is being hidden or closed, clean it up.
@@ -34,12 +38,12 @@ void android_main(struct android_app *app)
     // Set the callback to process system events
     app->onAppCmd = handle_cmd;
 
-    VulkanApplication vulkan_app;
-    vulkan_app.run();
-
     // Used to poll the events in the main loop
     int events;
     android_poll_source *source;
+
+    // Start rendering thread
+    std::thread render_thread(&VulkanApplication::run, std::ref(vulkan_app), app);
 
     do
     {
@@ -51,6 +55,10 @@ void android_main(struct android_app *app)
         }
 
     } while (app->destroyRequested == 0);
+    
+    LOGI("End of app loop");
+
+    render_thread.join();
 
     LOGI("End of android_main");
 }
