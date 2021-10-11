@@ -15,9 +15,9 @@ set(SRC_DIR src/main/cpp)
 set(INC_DIR src/main/headers)
 file(GLOB SRC_FILES CONFIGURE_DEPENDS "${SRC_DIR}/*.cpp")
 # file(GLOB INC_FILES CONFIGURE_DEPENDS "${INC_DIR}/*.h")
-set(VULKAN_DIR $ENV{VULKAN_SDK}/Include/)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Werror")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Werror \
+                     -DVK_USE_PLATFORM_ANDROID_KHR")
 
 # Export ANativeActivity_onCreate(),
 # Refer to: https://github.com/android-ndk/ndk/issues/381.
@@ -29,12 +29,14 @@ add_library(AndroidVulkanGameEngine SHARED
 
 target_include_directories(AndroidVulkanGameEngine PRIVATE
     ${NATIVE_APP_GLUE_DIR}
-    ${INC_DIR}
-    ${VULKAN_DIR})
+    ${INC_DIR})
+
+find_package(Vulkan REQUIRED)
 
 # add lib dependencies
 target_link_libraries(
     AndroidVulkanGameEngine
     android
     native_app_glue
-    log)
+    log
+    Vulkan::Vulkan)
