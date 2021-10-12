@@ -6,3 +6,7 @@ build
 
 # Ignore c++ build output directory
 .cxx
+
+# Ignore VS Code files
+.vscode/*
+!.vscode/c_cpp_properties.json
