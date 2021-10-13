@@ -16,7 +16,7 @@ set(INC_DIR src/main/headers)
 file(GLOB SRC_FILES CONFIGURE_DEPENDS "${SRC_DIR}/*.cpp")
 # file(GLOB INC_FILES CONFIGURE_DEPENDS "${INC_DIR}/*.h")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Werror \
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -pedantic -Werror \
                      -DVK_USE_PLATFORM_ANDROID_KHR")
 
 # Export ANativeActivity_onCreate(),
