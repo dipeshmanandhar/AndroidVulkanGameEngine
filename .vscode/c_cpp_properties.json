@@ -3,12 +3,15 @@
         {
             "name": "AndroidVulkanGameEngine",
             "intelliSenseMode": "clang-x64",
-            "compilerPath": "${env:ANDROID_SDK_ROOT}/ndk/22.1.7171670/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+            "compilerPath": "${env:ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
             "includePath": [
                 "${default}",
                 "${workspaceFolder}/app/**",
-                "${env:ANDROID_SDK_ROOT}/ndk/22.1.7171670/sources/**",
-                "${env:ANDROID_SDK_ROOT}/ndk/22.1.7171670/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/**"
+                "${env:ANDROID_NDK_ROOT}/sources/**",
+                "${env:ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/**"
+            ],
+            "defines": [
+                "VK_USE_PLATFORM_ANDROID_KHR"
             ]
         }
     ],
